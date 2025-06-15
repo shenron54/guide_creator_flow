@@ -1,0 +1,30 @@
+analyze_data_task:
+  description: >
+    Analyze the user's query: "{user_query}". Your goal is to provide a concise, structured set of data points for the next agent.
+    Follow these steps precisely:
+    1.  **Check for Comparison**: Look at the '{date_qualifier}'.
+    2.  **If a comparison is needed** (e.g., 'yesterday'), you MUST call the Sensor API Client for *current* data and for *historical* data, then structure your findings clearly listing both values.
+    3.  **If NO comparison is needed**, call the Sensor API Client once for the current data.
+    4.  **Consult Knowledge Base**: Use the MDX Search Tool on {mdx_path} to find *one or two sentences* of context directly relevant to the user's issue (e.g., the definition of thermal comfort).
+  expected_output: >
+    A final, structured summary containing only the key-value data points found. Example:
+    - Sensor: Room 7FC Temperature
+    - Current Value: 22.1°C
+    - Yesterday's Value: 23.5°C
+    - Context: "Thermal comfort is affected by temperature and humidity."
+  agent: building_systems_analyst
+
+generate_response_task:
+  description: >
+    Take the structured data summary from the Building Systems Analyst and craft a final, verbose, and user-facing response.
+    Your goal is to be a helpful and insightful building assistant.
+    - **Always start by directly stating the primary data points** found by the analyst (e.g., "The current temperature in your room is 21.9°C...").
+    - **Elaborate on the data.** Use the context from the analyst to explain what the values mean in practical terms. Compare them to normal operating ranges if that information is available.
+    - **Connect the data to the user's experience.** Explain *why* they might be feeling the way they do based on the data (e.g., "While this is within the typical comfortable range, other factors like airflow could make it feel cooler...").
+    - **Provide multiple, concrete suggestions** for what the user can do next (e.g., "check if the chilled beam vents can be adjusted," or "let the facilities team know...").
+    - Maintain a professional, empathetic, and helpful tone throughout. Your response should be a comprehensive paragraph, not just a few sentences.
+  expected_output: >
+    A detailed, well-written, and friendly response that is at least a full paragraph long. The response must clearly present the data, explain its context and implications for the user, and offer concrete, actionable advice.
+  context:
+    - analyze_data_task
+  agent: helpful_assistant
