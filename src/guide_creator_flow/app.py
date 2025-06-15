@@ -1,4 +1,9 @@
 import streamlit as st
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from guide_creator_flow.main import BuildingAssistantFlow, BuildingAssistantState
 
 st.title("Building Management Assistant")
