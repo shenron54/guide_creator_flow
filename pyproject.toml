@@ -12,6 +12,7 @@ dependencies = [
 "socksio>=1.0.0",
 "pyarrow==17.0.0",
 "pysqlite3-binary",
+"google-generativeai",
 ]
 
 [project.scripts]
