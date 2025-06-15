@@ -79,7 +79,7 @@ class BuildingAssistantFlow(Flow[BuildingAssistantState]):
         """Run the facility assistant crew to synthesize a response."""
         print("Running Facility Assistant Crew...")
 
-        mdx_path = r"..\..\cooling_tower_practice.md"
+        mdx_path = r"./cooling_tower_practice.md"
         
         today = datetime.date.today()
         current_date_str = today.strftime("%B %d, %Y")
